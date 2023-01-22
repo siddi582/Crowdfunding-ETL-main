@@ -2,22 +2,18 @@
 <br/>
 <p align="center">Shehryar Siddiqui<br/>
 UC Berkley Extension<br/>
-January 21, 2022<br/>
+August 31, 2022<br/>
 <p/>
 <br/>
 <p align="center">
   <img width="460" height="200" src="crowdfunding.png">
 </p>
 <br/>
-
 ## Overview of the Project
-
 <br/>
 A crowdfunding platform called "Independent Funding" who focuses on funding independent projects has been growing as of late. Their growth has required massive changes when it comes to accessing their data. Currently, the data is in a large Excel file and they want to move that data onto a PostgreSQL database. In turn, this will assist the analytics team perform analysis and develop reports on behalf of their company's stakeholders. In addition to stakeholders, this will also assist individuals who have donated to projects. To tackle this issue I teamed up with a co-worker named Brita. We recieved an additional objective to use a encorporate a new data set that contains information about backers who pledged at live events. 
 <br/>
-
 ### Phase One: Extract and Transform the Data
-
 <br/>
 <p align="center">
   <img width="460" height="200" src="Pandas.jpeg">
@@ -33,9 +29,6 @@ Referencing the image above we could now see how the data frame needed some seri
 <p align="center">
   <img width="480" height="350" src="DataFramePhase1.png">
 </p>
-
-### Phase Two: Transform the Data
-
 <br/>
 The most challenging part of the entire analysis was about to begin. We now had to trasform and further clean the data. However, the challenge was within Regex. Albeit intimidating, using RegEx was exciting and pivitol to my growth as a Data Scientist. To give a brief explanation of Regex, according to Computer Hope (N.D.), "Short for regular expression, a regex is a string of text that lets you create patterns that help match, locate, and manage text." I read the backer_info.csv file into a new data frame called "next_backer_df." I extracted the alpha-numeric "backer_id" from the backer_info column (next_backer_df["backer_info"].str.extract(r'([a-z]{2}\d{3})')). The next step was to extract the two to four-digit "cf_id" which was completed similarly to the previously used function (backer_id extraction); however,  the Regex code was written as: .str.extract(r'(\b\d+\b)'). The "name" column was next on the list for extraction, but I had to first extract the name column (str.extract(r'([^nameil\s+][A-Za-z]+\s+[A-Za-z]+)') and then split the first and last names in their respective columns (first_name, last_name). I then dropped (df.drop()) the name column, because to have name, first_name, and last_name all as sequential columns didn't make sense. The first and last names generated into the data frame almost perfectly, but the first names had quotation marks before the first name. To drop the quotes I used str.replace('"',"") to achieve a cleaner data frame. The process is still not complete as my next task to help Brita was to add one more column ("email") and create a new data frame without backer_info as a column.
 <br/>
@@ -48,9 +41,6 @@ The "email" column is next on the list. The next_backer_df needed it's email col
 <p align="center">
   <img width="460" height="300" src="next_backer_df.png">
 </p>
-
-### Phase Three: Load the Data
-
 <br/>
 At this point of the ETL process I will creat an ERD and a table schema to then finally load the data. Using ERD I will create a backers table that will hold the primary and foreign keys based on the information from the backers.csv, campaign.csv, category.csv, subcategory.csv, and the contacts_string_data.csv files. Once this process was completed I then exported the ERD as a csv file and used it in PostgreSQL.
 <br/>
